@@ -13,7 +13,14 @@ app.use(cors());
 
 const port = process.env.PORT || 4500;
 
-const { getModels, loginModel, signupModel } = require("./routes/models");
+const {
+  findModels,
+  findInfluencers,
+  loginModel,
+  signupModel
+} = require("./routes/models");
+
+const { findTalent, contactUS } = require("./routes/sendmails");
 
 // Static File Service
 app.use(express.static("public"));
@@ -38,7 +45,15 @@ app.post("/signup", signupModel);
 app.post("/login", loginModel);
 
 // Get all models data
-app.get("/models", jwtAuth.checkToken, getModels);
+app.get("/models", findModels);
+// Get all influencers data
+app.get("/influencers", findInfluencers);
+
+// Find talent api
+app.post("/find_talent", findTalent);
+
+// Contact us api
+app.get("/contact_us", jwtAuth.checkToken, contactUS);
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);

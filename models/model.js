@@ -5,7 +5,7 @@ const modelSchema = new mongoose.Schema(
   {
     firstname: { type: String, required: true },
     lastname: { type: String, required: true },
-    instagram_url: { type: String, required: true },
+    instagram_url: { type: String, required: false },
     email: { type: String, required: true, index: { unique: true } },
     password: { type: String, required: true },
     phone_number: { type: String, required: true },
@@ -15,6 +15,7 @@ const modelSchema = new mongoose.Schema(
     postal_code: { type: String, required: true },
     state: { type: String, required: true },
     birthday: { type: String, required: true },
+    model: { type: String, required: true },
     story1: { type: String, required: true },
     story2: { type: String, required: true },
     story3: { type: String, required: true },
@@ -42,9 +43,14 @@ modelSchema.statics.create = function(payload) {
 };
 
 // Find All
-modelSchema.statics.findAll = function() {
+modelSchema.statics.findModels = function() {
   // return promise
   return this.find().sort({ updatedAt: -1 });
+};
+
+modelSchema.statics.findInfluencers = function() {
+  // return promise
+  return this.find({ model: "true" }).sort({ updatedAt: -1 });
 };
 
 // Find one with email

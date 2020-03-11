@@ -4,6 +4,8 @@ var bcrypt = require("bcrypt");
 let jwt = require("jsonwebtoken");
 let config = require("../config/config");
 
+require("dotenv").config();
+
 const { validateSignupData, validateLoginData } = require("../util/validators");
 
 var storage = multer.diskStorage({
@@ -69,7 +71,7 @@ exports.signupModel = (req, res) => {
     if (typeof req.files["full_length"] !== "undefined") {
       let full_length = {
         title: req.files["full_length"][0]["fieldname"],
-        fileurl: `http://localhost:4500/images/${req.files["full_length"][0]["filename"]}`
+        fileurl: `${process.env.Site_URL}/images/${req.files["full_length"][0]["filename"]}`
       };
       photos.push(full_length);
     }
@@ -77,7 +79,7 @@ exports.signupModel = (req, res) => {
     if (typeof req.files["full_length_profile"] !== "undefined") {
       let full_length_profile = {
         title: req.files["full_length_profile"][0]["fieldname"],
-        fileurl: `http://localhost:4500/images/${req.files["full_length_profile"][0]["filename"]}`
+        fileurl: `${process.env.Site_URL}/images/${req.files["full_length_profile"][0]["filename"]}`
       };
       photos.push(full_length_profile);
     }
@@ -85,7 +87,7 @@ exports.signupModel = (req, res) => {
     if (typeof req.files["portrait_length"] !== "undefined") {
       let portrait_length = {
         title: req.files["portrait_length"][0]["fieldname"],
-        fileurl: `http://localhost:4500/images/${req.files["portrait_length"][0]["filename"]}`
+        fileurl: `${process.env.Site_URL}/images/${req.files["portrait_length"][0]["filename"]}`
       };
       photos.push(portrait_length);
     }
@@ -93,7 +95,7 @@ exports.signupModel = (req, res) => {
     if (typeof req.files["close_up"] !== "undefined") {
       let close_up = {
         title: req.files["close_up"][0]["fieldname"],
-        fileurl: `http://localhost:4500/images/${req.files["close_up"][0]["filename"]}`
+        fileurl: `${process.env.Site_URL}/images/${req.files["close_up"][0]["filename"]}`
       };
       photos.push(close_up);
     }
@@ -101,7 +103,7 @@ exports.signupModel = (req, res) => {
     if (typeof req.files["close_up_profile"] !== "undefined") {
       let close_up_profile = {
         title: req.files["close_up_profile"][0]["fieldname"],
-        fileurl: `http://localhost:4500/images/${req.files["close_up_profile"][0]["filename"]}`
+        fileurl: `${process.env.Site_URL}/images/${req.files["close_up_profile"][0]["filename"]}`
       };
       photos.push(close_up_profile);
     }
@@ -109,7 +111,7 @@ exports.signupModel = (req, res) => {
     if (typeof req.files["personality_pic"] !== "undefined") {
       let personality_pic = {
         title: req.files["personality_pic"][0]["fieldname"],
-        fileurl: `http://localhost:4500/images/${req.files["personality_pic"][0]["filename"]}`
+        fileurl: `${process.env.Site_URL}/images/${req.files["personality_pic"][0]["filename"]}`
       };
       photos.push(personality_pic);
     }
@@ -127,6 +129,7 @@ exports.signupModel = (req, res) => {
       postal_code: req.body.postal_code,
       state: req.body.state,
       birthday: req.body.birthday,
+      model: req.body.model,
       story1: req.body.story1,
       story2: req.body.story2,
       story3: req.body.story3,
@@ -225,12 +228,29 @@ exports.loginModel = (req, res) => {
 };
 
 // Find All Models
-exports.getModels = (req, res) => {
-  Model.findAll()
+exports.findModels = (req, res) => {
+  Model.findModels()
     .then(models => {
       if (!models.length)
         return res.status(404).send({ err: "Model not found" });
-      res.send(`find successfully:${models}`);
+      res.json({
+        success: true,
+        models: models
+      });
+    })
+    .catch(err => res.status(500).send(err));
+};
+
+// Find All Models
+exports.findInfluencers = (req, res) => {
+  Model.findInfluencers()
+    .then(influencers => {
+      if (!influencers.length)
+        return res.status(404).send({ err: "Influencer not found" });
+      res.json({
+        success: true,
+        influencers: influencers
+      });
     })
     .catch(err => res.status(500).send(err));
 };
