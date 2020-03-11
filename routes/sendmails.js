@@ -33,7 +33,7 @@ exports.findTalent = (req, res) => {
 
   const mailOptions = {
     from: "suzuki.kuro813@gmail.com", // sender address
-    to: "", // list of receivers
+    to: "aziro.suzuki813@gmail.com", // list of receivers
     subject: "Contact Info", // Subject line
     html: html // plain text body
   };
