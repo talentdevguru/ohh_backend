@@ -45,7 +45,7 @@ modelSchema.statics.create = function(payload) {
 // Find All
 modelSchema.statics.findModels = function() {
   // return promise
-  return this.find({ model: "false" }).sort({ updatedAt: -1 });
+  return this.find().sort({ updatedAt: -1 });
 };
 
 modelSchema.statics.findInfluencers = function() {
