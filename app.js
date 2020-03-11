@@ -53,7 +53,7 @@ app.get("/influencers", findInfluencers);
 app.post("/find_talent", findTalent);
 
 // Contact us api
-app.post("/contact_us", jwtAuth.checkToken, contactUS);
+app.post("/contact_us", contactUS);
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
