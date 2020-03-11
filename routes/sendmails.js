@@ -63,7 +63,7 @@ exports.findTalent = (req, res) => {
 
   const mailOptions = {
     from: "suzuki.kuro813@gmail.com", // sender address
-    to: "aziro.suzuki813@gmail.com", // list of receivers
+    to: "info@zedinternational.net", // list of receivers
     subject: "Contact Info", // Subject line
     html: html // plain text body
   };
@@ -106,8 +106,8 @@ exports.contactUS = (req, res) => {
 
   const mailOptions = {
     from: "suzuki.kuro813@gmail.com", // sender address
-    to: "aziro.suzuki813@gmail.com", // list of receivers
-    subject: "Contact Info", // Subject line
+    to: "info@zedinternational.net", // list of receivers
+    subject: "Find Talents", // Subject line
     html: html // plain text body
   };
 
